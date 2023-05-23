@@ -8,28 +8,31 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioGroup
+import android.widget.Switch
 import android.widget.Toast
 import com.google.android.material.checkbox.MaterialCheckBox.CheckedState
 
 class MainActivity : AppCompatActivity() {
-    lateinit var checkState:CheckBox
+    lateinit var switchStart:Switch
     lateinit var rg:RadioGroup
     lateinit var linear:LinearLayout
-    lateinit var btnDone:Button
+    lateinit var endDone:Button
+    lateinit var restartDone:Button
     lateinit var imgv:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        checkState = findViewById(R.id.check_start)
+        switchStart = findViewById(R.id.check_start)
         rg = findViewById(R.id.rg)
         linear = findViewById(R.id.linear)
-        btnDone = findViewById(R.id.btn_done)
+        endDone = findViewById(R.id.end_done)
+        restartDone = findViewById(R.id.end_done)
         imgv = findViewById(R.id.imgv)
         linear.visibility = View.INVISIBLE
 
-        checkState.setOnCheckedChangeListener{compoundButton, b ->
-            if(checkState.isChecked){
+        switchStart.setOnCheckedChangeListener{compoundButton, b ->
+            if(switchStart.isChecked){
                 linear.visibility = View.VISIBLE
             }
             else{
@@ -37,13 +40,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        btnDone.setOnClickListener {
+        rg.setOnCheckedChangeListener { radioGroup, i ->
             when(rg.checkedRadioButtonId){
                 R.id.radio_dog -> imgv.setImageResource(R.drawable.dog)
                 R.id.radio_rabbit -> imgv.setImageResource(R.drawable.rabbit)
                 R.id.radio_cat -> imgv.setImageResource(R.drawable.cat)
-                else -> Toast.makeText(applicationContext, "라디오버튼이 선택되지 않았습니다.", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
     }
 }
